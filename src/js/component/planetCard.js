@@ -19,6 +19,14 @@ export const PlanetCard = (props) => {
     useEffect(() => {
         planetInfo();
     },[])
+
+    const onClickFav = (planet) => {
+        actions.handleFavorite(planet)
+    }
+
+    const isFavorite = () => {
+        return store.favorites.includes(props.planet)
+    }
     
     return (
         <div className="card" style={{width: "18rem"}}>
@@ -30,12 +38,14 @@ export const PlanetCard = (props) => {
                 <p> Climate: {info.climate}</p>
                 <p> Terrain: {info.terrain}</p>
                 <p> Diameter: {info.diameter}</p>
-                <div className="buttons">
-                    <Link to={`/planets/${props.planet.uid}`} />
-                    <button type="button" className="btn btn-danger" onClick={() => {
-                        actions.addToFavorites(props.planet.uid);
+                <div className="linkButton">
+                    <Link to={`/planets/${props.planet.uid}`} >More Info</Link>
+                </div>
+                <div>
+                    <button type="likeButton" className="btn btn-danger" onClick={() => {
+                        onClickFav(props.planet)
                     }}>
-                        <i className="fa-solid fa-heart"></i>
+                        <i className={`fa-solid fa-heart ${isFavorite() ? "text-secondary" : ""}`}></i>
                     </button>
                 </div>
             </div>

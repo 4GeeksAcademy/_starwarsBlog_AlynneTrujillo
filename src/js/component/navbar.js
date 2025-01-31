@@ -18,7 +18,7 @@ export const Navbar = () => {
 			<div className="collapse navbar-collapse bg-primary" id="navbarSupportedContent">
 				<ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
 					<li className="nav-item dropdown">
-						<a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						<a className="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 							Favorites
 						</a>
 						<ul className="dropdown-menu">
@@ -27,20 +27,18 @@ export const Navbar = () => {
 									<li className="fav">
 										<p className="dropdown-item">No Favorites yet :(</p>
 									</li> :
-									store.favorites.map((fav, index) => {
-										console.log(store.favorites)
+									store.favorites.map((favorite, index) => {
 										return (
 											<li className="dropdown-fav" key={index}>
 												<div className="col-9">
-													<a className="dropdown-fav">{fav.index}</a>
+													<p className="dropdown-fav">{favorite.name}</p>
 												</div>
 												<div className="col-3">
 													<div>
-														<i
-															className="delete"
-															onClick={() => actions.deleteFavorite(fav)}
-														>
-														</i>
+														<button type="delete" className="btn btn-danger"
+															onClick={() => actions.handleFavorite(favorite)} >
+															<i class="fa-solid fa-trash-can"></i>
+														</button>
 													</div>
 												</div>
 											</li>

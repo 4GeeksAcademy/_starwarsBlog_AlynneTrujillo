@@ -20,11 +20,16 @@ export const CharacterCard = (props) => {
         characterInfo();
     }, [])
     
-    const isFavorite = (name) => {
-        console.log(name);
-        actions.handleFavorite(name)
+    const onClickFav = (character) => {
+        console.log(store.favorites);
+        actions.handleFavorite(character)
     }
-
+    
+    const isFavorite = () => {
+        console.log(store.favorites.includes(props.character));
+        return store.favorites.includes(props.character)
+    }
+    
     return (
         <div className="card" style={{ width: "18rem" }}>
             <img src={`https://starwars-visualguide.com/assets/img/characters/${props.character.uid}.jpg`}
@@ -34,12 +39,14 @@ export const CharacterCard = (props) => {
                 <p> Gender: {info.gender}</p>
                 <p> Hair color: {info.hair_color}</p>
                 <p> Eye color: {info.eye_color}</p>
-                <div className="buttons">                
-                    <Link to={`/people/${props.character.id}`} />
+                <div className="linkButton">                
+                    <Link to={`/people/${props.character.id}`} >More Info</Link>
+                </div>
+                <div className="likeButton">
                     <button type="button" className="btn btn-danger" onClick={() => {
-                        isFavorite(props.character.name)
+                        onClickFav(props.character)
                     }}>
-                        <i className="fa-solid fa-heart"></i>
+                        <i className={`fa-solid fa-heart ${isFavorite() ? "text-secondary" : ""}`}></i>
                     </button>
                 </div>
             </div>

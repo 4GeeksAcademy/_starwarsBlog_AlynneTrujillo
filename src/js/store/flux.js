@@ -60,26 +60,33 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					.catch(err => console.error(err));
 			},
-			handleFavorite: (name) => {
+			handleFavorite: (item) => {
 				const store = getStore();
-				setStore({ favorites: [...store.favorites, name] })
-				console.log(store.favorites)
+				if(store.favorites.includes(item)) {
+					const allButRemoved = store.favorites.filter((e) => {
+						return e != item;
+						})
+						setStore({ favorites: allButRemoved })
+				} else {
+					setStore({ favorites: [...store.favorites, item] })
+					console.log(store.favorites)
+				}
 
 				// object instead of array try with target.value 
-			}
+			},
+			deleteFavorite: (oldFav) => {
+				let store = getStore();
+				const allButRemoved = store.favorites.filter((e) => {
+				return e != oldFav;
+				})
+				setStore({ favorites: allButRemoved })
+			},
 			// addToFavorites: (fav) => {
 			// 	let store = getStore();
 			// 	if (!store.favorites.includes(fav)) {
 			// 		setStore({ favorites: [...store.favorites, fav] })
 			// 	}
-			// },
-			// deleteFavorite: (oldFav) => {
-			// 	let store = getStore();
-			// 	const allButRemoved = store.favorites.filter((e) => {
-			// 		return e != oldFav;
-			// 	})
-			// 	setStore({ favorites: allButRemoved })
-			// },
+			// }
 		},
 	}
 };
